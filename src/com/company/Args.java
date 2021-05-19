@@ -3,29 +3,27 @@ package com.company;
 import java.text.ParseException;
 import java.util.*;
 
-class ArgumentMarshaller {
-    private boolean booleanValue = false;
-
-    public void setBoolean(boolean value) {
-        booleanValue = value;
-    }
-
-    public boolean getBoolean() {
-        return booleanValue;
-    }
-
-}
-class BooleanArgumentMarshaller extends ArgumentMarshaller {
-}
-
-class StringArgumentMarshaller extends ArgumentMarshaller {
-}
-
-class IntegerArgumentMarshaller extends ArgumentMarshaller {
-}
-
 public class Args {
+    class ArgumentMarshaller {
+        private boolean booleanValue = false;
 
+        public void setBoolean(boolean value) {
+            booleanValue = value;
+        }
+
+        public boolean getBoolean() {
+            return booleanValue;
+        }
+
+    }
+    private class BooleanArgumentMarshaller extends ArgumentMarshaller {
+    }
+
+    private class StringArgumentMarshaller extends ArgumentMarshaller {
+    }
+
+    private class IntegerArgumentMarshaller extends ArgumentMarshaller {
+    }
 
     private String schema;
     private String[] args;
@@ -236,9 +234,6 @@ public class Args {
         return message.toString();
     }
 
-    private boolean falseIfNull(Boolean b){
-        return b!=null&&b;
-    }
 
     private int zeroIfNull(Integer i){
         return i == null?0:i;
