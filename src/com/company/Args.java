@@ -252,7 +252,8 @@ public class Args {
     }
 
     public boolean getBoolean(char arg){
-        return falseIfNull(booleanArgs.get(arg).getBoolean());
+        Args.ArgumentMarshaller am = booleanArgs.get(arg);
+        return am != null && am.getBoolean();
     }
 
     public boolean has(char arg){
