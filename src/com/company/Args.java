@@ -4,14 +4,10 @@ import java.text.ParseException;
 import java.util.*;
 
 public class Args {
-    class ArgumentMarshaller {
-        private boolean booleanValue = false;
+    abstract class ArgumentMarshaller {
+        protected boolean booleanValue = false;
         private String stringValue;
         private int integerValue;
-
-        public void setBoolean(boolean value) {
-            booleanValue = value;
-        }
 
         public boolean getBoolean() {
             return booleanValue;
@@ -33,14 +29,44 @@ public class Args {
             return integerValue;
         }
 
+        public abstract void set(String s);
+
+        public abstract Object get();
+
     }
     private class BooleanArgumentMarshaller extends ArgumentMarshaller {
+        public void set(String s) {
+            booleanValue = true;
+        }
+
+        @Override
+        public Object get() {
+           return booleanValue;
+        }
     }
 
     private class StringArgumentMarshaller extends ArgumentMarshaller {
+        @Override
+        public void set(String s) {
+
+        }
+
+        @Override
+        public Object get() {
+            return null;
+        }
     }
 
     private class IntegerArgumentMarshaller extends ArgumentMarshaller {
+        @Override
+        public void set(String s) {
+
+        }
+
+        @Override
+        public Object get() {
+            return null;
+        }
     }
 
     private String schema;
@@ -208,7 +234,7 @@ public class Args {
     }
 
     private void setBooleanArg(char argChar,boolean value){
-        booleanArgs.get(argChar).setBoolean(value);
+        booleanArgs.get(argChar).set("true");
     }
 
     private boolean isBooleanArg(char argChar){
@@ -273,7 +299,7 @@ public class Args {
 
     public boolean getBoolean(char arg){
         Args.ArgumentMarshaller am = booleanArgs.get(arg);
-        return am != null && am.getBoolean();
+        return am != null && (Boolean)am.get();
     }
 
     public boolean has(char arg){
